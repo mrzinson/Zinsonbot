@@ -1,0 +1,441 @@
+<!DOCTYPE html><html lang="en">  <head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <link rel="stylesheet" href="css/index.css">  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>ZinsonBot</title>  
+</head>  
+<body>  
+    <!-- Loading Screen -->
+    <div id="loading">
+        <div class="dots">
+            <span>ZinsonBot</span>
+            <span class="dtr">●</span>
+        </div>
+        <div class="dotss">
+            <span>from</span>
+            <span>zinson</span>
+        </div>
+    </div>
+    <div class="chat-container">  
+        <div class="chat-header yes">  
+            <img src="images/20250312_104714.png" id="menu-btn" onclick="toggleMenu()">  
+           <span> <h2>ZinsonBot ●</h2>  </span>
+            <img src="images/profile.png" class="profile" onclick="toggleProfile()">  
+        </div><div class="menu-dropdown" id="menu-dropdown">  
+      <div class="menu-dropdown-header">  
+      <input type="search" class="searchbar" placeholder="Search...">  
+      <img src="images/Search.png" class="searchimg">  
+      </div>  
+      <div class="menu-dropdown-middle">  
+      <div class="menu-dropdown-headerk" onclick="toggleZinson()">  
+        <img src="Images/20250312_104425.png" alt="">  
+        <h3>ZinsonBOT</h3>  
+      </div>  
+      <div class="menu-dropdown-headerl" onclick="toggleSeo()">  
+        <img src="Images/20250312_104537.png">  
+        <h3>SEO of Bot</h3>  
+      </div>  
+      <p>Setting</p>  
+        <ul class="yes">  
+            <span><li class="clearChatu">Clear Chat</li></span><br>
+            <span><li>New Chat</li> </span>
+        </ul>  
+      <p>Chats</p>  
+        <ul></ul>  
+      </div>  
+      <div class="menu-dropdown-footer">  
+        <div>  
+          <img src="Images/20250312_104425.png">  
+          <h3>Hamze Mohamud Ali</h3>
+        </div>  
+        <p class="hh yes">
+        <span>© 2025 Zinson. All rights reserved.</span>
+        </p>  
+      </div>  
+    </div>  
+    <div class="chat-messages" id="chat-messages">  
+  <div class="massageyada-dhexe">  
+    <h2>Kusoo Dhawoow ZinsonBot</h2>  
+    
+    <div class="door" onclick="toggleDoor(this)"></div>
+<!--    <div class="massageyada-dhexe-1">  
+    <h3 onclick="sendQuickMessage('Hello'); hideQuickQuestions()">👋 Hello</h3>
+      <h3>🌍  Aduunyo</h3>  
+      <h3>🌑 Aakhiro</h3>  
+      <h3>🏔 Cheography</h3>  
+    </div>  
+    <div class="massageyada-dhexe-2">  
+      <h3 onclick="sendQuickMessage('Hello')">👋 Hello</h3>  
+      <h3>😊 iwaran</h3>  
+      <h3>🫂 Zinson</h3>  
+      <h3>🤔 maxaad qabataa</h3>  
+    </div>    --> 
+
+
+  </div>
+    <div class="message received">  
+    </div>  
+      
+    <!-- Scroll to Bottom Button -->
+
+<button id="scroll-button" onclick="scrollToBottom()">
+  <img src="images/scroll.png" >
+</button> </div>
+
+<div class="input-area">  
+<div>
+          <input type="text" placeholder="Type a message..." id="message-input">
+</div>
+<div class="input-area2">
+  <div class="thinks">
+<button id="reason-btn">🧠 Reason</button>
+<button id="search-btn">🌐 Search</button>
+
+  </div>
+  <div id="record-container">
+    <button id="record-btn">
+        <i class="fa fa-microphone"></i>
+    </button>
+
+    <div id="action-buttons">
+        <button onclick="stopRecording()"><i class="fa fa-paper-plane"></i></button>
+        <button onclick="pauseRecording()"><i class="fa fa-pause-circle"></i></button>
+        <button onclick="deleteRecording()"><i class="fa fa-trash"></i></button>
+    </div>
+</div>
+  <div class="daad">
+    <!-- Audio playback -->
+<audio id="audio-playback" controls style="display: none;"></audio>
+<!-- Badhanka duubista -->
+
+    <!--<button class="add" onclick="toggleRecording()">+</button> --> 
+    <img src="images/send.png" class="sendeed" id="send-btn">
+    </div>
+</div>
+    </div>  
+</div>
+
+<script>
+let isRecording = false;
+let startY = 0;
+let moveUp = false;
+
+const recordButton = document.getElementById("record-btn");
+const recordIcon = recordButton.querySelector("i");
+const actionButtons = document.getElementById("action-buttons");
+
+// Taabo si aad u bilowdo duubista
+recordButton.addEventListener("touchstart", function(event) {
+    event.preventDefault();
+    startY = event.touches[0].clientY;
+    moveUp = false;
+    startRecording();
+});
+
+// Dhaqaaji si aad kor ugu jiido
+recordButton.addEventListener("touchmove", function(event) {
+    let currentY = event.touches[0].clientY;
+    let distanceMoved = startY - currentY;
+
+    if (distanceMoved > 50 && !moveUp) {
+        moveUp = true;
+        showActionButtons();
+    }
+});
+
+// Sii daa si aad u joojiso duubista
+recordButton.addEventListener("touchend", function(event) {
+    event.preventDefault();
+    if (!moveUp) stopRecording();
+});
+
+function startRecording() {
+    navigator.mediaDevices.getUserMedia({ audio: true })
+        .then(stream => {
+            mediaRecorder = new MediaRecorder(stream);
+            mediaRecorder.start();
+            isRecording = true;
+            audioChunks = [];
+
+            recordIcon.classList.replace("fa-microphone", "fa-microphone-slash");
+
+            mediaRecorder.ondataavailable = event => {
+                audioChunks.push(event.data);
+            };
+        })
+        .catch(error => console.error("Error accessing microphone: ", error));
+}
+
+function stopRecording() {
+    if (isRecording && mediaRecorder) {
+        mediaRecorder.stop();
+        isRecording = false;
+
+        mediaRecorder.onstop = () => {
+            if (audioChunks.length === 0) return;
+
+            const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+            displayAudioMessage(URL.createObjectURL(audioBlob));
+
+            // Jawaabta gaarka ah ee codka
+            setTimeout(() => {
+                let botReply = `<div style="background:#f8d7da; color:#721c24; padding:10px; border-radius:5px;">
+                <strong>Sorry!</strong> Maka jawaabi karo cod waayo <b>Hamze Zinson</b> oo ah maskaxdii isameeyay wali muu diyaarin qaybtii codka. 
+                <br><br> Ma sii shaqeyn karo jawaabaha codka ilaa uu dhammeeyo dhismaha qaybtaas. 
+                </div>`;
+                displayMessage(botReply, "bot");
+            }, 2000); // 2 ilbiriqsi dib u dhac
+
+            audioChunks = [];
+        };
+    }
+    recordIcon.classList.replace("fa-microphone-slash", "fa-microphone");
+    actionButtons.style.display = "none"; // Hide buttons after sending
+}
+
+function showActionButtons() {
+    actionButtons.style.display = "flex";
+}
+
+function deleteRecording() {
+    audioChunks = [];
+    actionButtons.style.display = "none";
+    stopRecording();
+}
+
+function pauseRecording() {
+    if (mediaRecorder.state === "recording") {
+        mediaRecorder.pause();
+    } else {
+        mediaRecorder.resume();
+    }
+}
+
+  let activeMode = null; // Meel lagu kaydiyo mode-ka firfircoon
+
+document.getElementById("reason-btn").addEventListener("click", function() {
+    toggleMode("reason");
+});
+//            .catch(error => {
+  //              console.error("Error accessing microphone: ", error);
+      //          alert("Mic permission lama helin. Fadlan oggolow cod duubista.");
+   //         });
+document.getElementById("search-btn").addEventListener("click", function() {
+    toggleMode("search");
+});
+
+function toggleMode(mode) {
+    if (activeMode === mode) {
+        activeMode = null; // Haddii la gujiyo mar labaad, ha dansamo
+    } else {
+        activeMode = mode; // Haddii la gujiyo, ha noqoto mode firfircoon
+    }
+    updateButtonStyles();
+}
+
+function updateButtonStyles() {
+    let reasonBtn = document.getElementById("reason-btn");
+    let searchBtn = document.getElementById("search-btn");
+
+    reasonBtn.style.backgroundColor = (activeMode === "reason") ? "#4CAF50" : ""; // Green
+    searchBtn.style.backgroundColor = (activeMode === "search") ? "#2196F3" : ""; // Blue
+}
+
+// Shaqada dirista farriinta (Send Button)
+document.getElementById("send-btn").addEventListener("click", function() {
+    let userInput = document.getElementById("message-input").value.trim();
+    if (!userInput) return;
+
+    displayMessage(userInput, "user");
+    document.getElementById("message-input").value = "";
+
+    let loadingMessage = document.createElement('div');
+    loadingMessage.className = 'message received';
+    loadingMessage.innerHTML = `<div class="message-bubble yes"><span>Typing</span><span class="loading-circle"></span></div>`;
+    document.getElementById("chat-messages").appendChild(loadingMessage);
+    document.getElementById("chat-messages").scrollTop = document.getElementById("chat-messages").scrollHeight;
+
+    setTimeout(async () => {
+        try {
+            let responseMessage = await getAIResponse(userInput);
+            document.getElementById("chat-messages").removeChild(loadingMessage);
+            displayMessage(responseMessage, "bot");
+        } catch (error) {
+            document.getElementById("chat-messages").removeChild(loadingMessage);
+            displayMessage("Error: " + error.message, "bot");
+        }
+    }, 1500); // 1.5 sec delay for effect
+});
+// Function Response AI
+async function getAIResponse(userInput) {
+    try {
+        let response = await fetch(apiUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${apiKey}`
+            },
+            body: JSON.stringify({
+                model: "llama3-70b-8192",
+                messages: conversationHistory.concat([{ role: "user", content: userInput }]),
+                temperature: 0.7
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`Server responded with status: ${response.status}`);
+        }
+
+        let data = await response.json();
+        return data.choices?.[0]?.message?.content || "Waan ka xumahay, ma helin jawaab.";
+    } catch (error) {
+        console.error("Error fetching AI response: ", error);
+        return "Sorry!,😔 Anigu Waxaan ku shaqeeyaa internet. bal hubi internetkaaga inuu shaqaynayo si aan kuugu jawaabo.<br> <br> waayo **Hamze Zinson** wuxuu i'amray inaan ku shaqeeyo internet.<br> <br> Lakin hadaad doonayso waxa aan ahay iyo waxa aan qabto waa tan hoose: <br> <br> <br> **Maxan ahay**<br>● Marka hore magacaygu Waa <b>ZinsonBot</b> oo waxa laygu magac daray ninkii isameeyey iyo shirkadii isameesayba oo.  Ninka isameeyetna waxa la dhahaa **Hamze zison**<br> Waxan ku hadlaa in ka badan 20 luuqadood oo kala ah <br> 1. Somali.<br>2. English <br>3. Carabi <br>4. Sawahili <br>5. Urdo<br> 6. iyo kuwo kale oo badan waliba si heer sare ah ayaa lay baray<br><br>● Waxan qabtaa shaqooyin badan oo hawl fudaydin aan ku sameeyaa ay Xisaabtu Kow katahay oo si fiican uga fakaro waxann kale oo qabtaa shaqooyin badan oo lay abuuray inaan ka shaqeeyo waxana ka mida: <br> 1. Caawiska dadka.<br> 2. Turjumaada luuqadaha. <br>3. Abuurista Sawiro <br>4. Abuurista topics<br> Ka shaqaynta xisaabta si heer sare ah hadii uu kuu daaran yahy badhanka **Maths** ee halka hoose ku yaala<br><br><br><br><br><br> **Gunaamad** Hubi in uu shaqeynaayo internetkaagu si aad si fiican iila hadasho. <br> Oo aan uwada sheekaysanno.<br><br>😇Waxan rajaynayaa inaad hagaajin doonto Mahadsanid😊 ";
+    }
+}
+    const apiKey = "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"; // Ku beddel API Key-gaaga
+    const apiUrl = "https://api.groq.com/openai/v1/chat/completions"; // Groq API URL
+    let mediaRecorder;
+    let audioChunks = [];
+
+
+let conversationHistory = [
+    { 
+        role: "system", 
+        content: "Waxaad tahay chatbot casri ah oo la yiraahdo ZinsonBot, waxaana ku sameeyey Hamze Zinson ama shirkadda Zinson. Sidaas darteed, magac laguu bixiyey waa ZinsonBot.  ### Jawaabaha Xogta Khaaska Ah:  - **Yaa ku sameeyey?** → *Waxa i sameeyey Hamze Zinson.*  - **Magacaa?** → *Magacaygu waa ZinsonBot.*  - **Waa maxay shaqadaada?** → *Waxaan ahay chatbot ku hadla in ka badan 20 luuqadood oo si cilmiyeysan u bixiya macluumaad sax ah.*  - **Luuqadaha aad taqaan?** → *Waxaan ku hadlaa Soomaali, Carabi, English, iyo luuqado kale.*  Haddii su'aashu si cad u weydiiso **magacaa?** ama wax la mid ah, jawaabtaadu ha noqoto **Magacaygu waa ZinsonBot.** adigoon bixin faahfaahin kale. userkana ku dheh maxan kaa caawin karaa" 
+    }
+];
+function formatBotReply(text) {
+    // Haddii uu code jiro, kala saar code-ka
+    if (text.includes("```")) {
+        return text.replace(/```(\w+)?\n([\s\S]+?)```/g, function(match, lang, code) {
+            return `<pre><code class="code-block ${lang || 'plaintext'}">${escapeHtml(code)}</code></pre>`;
+        });
+    }
+
+    // Formatting caadi ah
+    return text
+        .replace(/\*\*\s*(.*?)\s*\*\*/g, "<b>$1</b>")  // Bold
+        .replace(/\n\s*/g, "<br>")                     // Line break
+        .replace(/•\s*/g, "<br>• ")                    // Bullet points
+        .replace(/\s*-\s*/g, "<br>- ");                // Dashes
+}
+
+    // Formatting caadi ah
+
+// Xafid code-ka si uusan HTML u burburin
+function escapeHtml(unsafe) {
+    return unsafe.replace(/[&<>"']/g, function(m) {
+        return ({
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
+        })[m];
+    });
+}
+
+async function sendMessage() {
+    let userInput = document.getElementById("message-input").value.trim();
+    if (!userInput) return;
+
+    displayMessage(userInput, "user");
+    document.getElementById("message-input").value = "";
+
+    let loadingMessage = document.createElement('div');
+    loadingMessage.className = 'message received';
+    loadingMessage.innerHTML = `<div class="message-bubble yes"><span>Typing</span><span class="loading-circle"></span></div>`;
+    document.getElementById("chat-messages").appendChild(loadingMessage);
+    document.getElementById("chat-messages").scrollTop = document.getElementById("chat-messages").scrollHeight;
+
+    try {
+        conversationHistory.push({ role: "user", content: userInput });
+
+        let response = await fetch(apiUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${apiKey}`
+            },
+            body: JSON.stringify({
+                model: "llama3-70b-8192",
+                messages: conversationHistory,
+                temperature: 0.7
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`Server responded with status: ${response.status}`);
+        }
+
+        let data = await response.json();
+        let botReply = data.choices?.[0]?.message?.content || "Waan ka xumahay, ma helin jawaab.";
+
+        botReply = formatBotReply(botReply);  // Apply formatting
+
+        conversationHistory.push({ role: "assistant", content: botReply });
+
+        document.getElementById("chat-messages").removeChild(loadingMessage);
+        displayMessage(botReply, "bot");
+
+    } catch (error) {
+        document.getElementById("chat-messages").removeChild(loadingMessage);
+        displayMessage(`Error: ${error.message}`, "bot");
+    }
+}
+    
+
+    // JavaScript to remove loading screen after 2 seconds
+    window.onload = function() {
+    setTimeout(() => {
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("bot").style.display = "block";
+    }, 5); // 2 seconds delay
+};
+
+function displayMessage(message, sender) {
+    const chatMessages = document.getElementById('chat-messages');
+    const messageDiv = document.createElement('div');
+    messageDiv.className = sender === "user" ? 'message sent' : 'message received';
+    messageDiv.innerHTML = `<div class="message-bubble">${formatBotReply(message)}</div>`;
+    chatMessages.appendChild(messageDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+    function formatCodeBlocks(botReply) {
+    botReply = botReply.replace(/\*\*(.*?)\*\*/g, "<b>$1</b>");  // Bold for headings
+    botReply = botReply.replace(/\n/g, "<br>");  // New lines
+    botReply = botReply.replace(/```([\s\S]*?)```/g, function(match, code) {
+        return `<pre><code>${escapeHtml(code)}</code></pre>`; // Wrap code in <pre><code> tags
+    });
+    return botReply;
+}
+
+// Markaad jawaabta hesho, ku dabaq habayntan:
+botReply = formatCodeBlocks(botReply);
+displayMessage(botReply, "bot");
+
+function displayAudioMessage(audioUrl) {
+    const chatMessages = document.getElementById('chat-messages');
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'message sent';
+
+    const audioElement = document.createElement('audio');
+    audioElement.controls = true;
+    audioElement.src = audioUrl;
+
+    messageDiv.appendChild(audioElement);
+    chatMessages.appendChild(messageDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+        function toggleDoor(doorElement) {
+            doorElement.classList.toggle("open");
+        }
+        
+
+</script>
+
+</body>  
+
+</html>
