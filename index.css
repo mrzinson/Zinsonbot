@@ -1,0 +1,621 @@
+
+           * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+                /* Loading Screen Styling */
+                        /* Loading Screen Styling */
+#loading {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: #ffffff;
+    justify-content: center;
+    align-items: center;
+    font-size: 35px;
+    font-weight: bold;
+    color: #333;
+    z-index: 9999;
+}
+
+.dotss {
+    margin-top: 20px;
+    font-size: 20px;
+    position: absolute;
+    bottom: 40px;
+}
+
+/* Dots Animation */
+.dots span {
+    display: inline-block;
+    animation: blink 1.5s infinite;
+}
+
+.dots span:nth-child(1) { animation-delay: 0s; }
+.dots span:nth-child(2) { animation-delay: 0.2s; }
+.dots span:nth-child(3) { animation-delay: 0.4s; }
+.dots span:nth-child(4) { animation-delay: 0.6s; }
+.dots span:nth-child(5) { animation-delay: 0.8s; }
+.dots span:nth-child(6) { animation-delay: 1.0s; }
+.dots span:nth-child(7) { animation-delay: 1.2s; }
+.dots span:nth-child(8) { animation-delay: 1.4s; }
+.dots span:nth-child(9) { animation-delay: 1.6s; }
+
+/* Animation Correction */
+@keyframes blink {
+    0% { opacity: 0.3; }
+    50% { opacity: 1; }
+    100% { opacity: 0.3; }
+}
+/* Dots Animation */
+.yes span {
+    display: inline-block;
+    animation: blink 1.5s infinite;
+}
+
+.yes span:nth-child(1) { animation-delay: 0s; }
+.yes span:nth-child(2) { animation-delay: 0.2s; }
+.yes span:nth-child(3) { animation-delay: 0.4s; }
+.dots span:nth-child(4) { animation-delay: 0.6s; }
+.dots span:nth-child(5) { animation-delay: 0.8s; }
+.dots span:nth-child(6) { animation-delay: 1.0s; }
+.dots span:nth-child(7) { animation-delay: 1.2s; }
+.dots span:nth-child(8) { animation-delay: 1.4s; }
+.dots span:nth-child(9) { animation-delay: 1.6s; }
+
+/* Animation Correction */
+@keyframes blink {
+    0% { opacity: 0.3; }
+    50% { opacity: 1; }
+    100% { opacity: 0.3; }
+}
+.dotss span {
+    display: inline-block;
+    animation: blink 1.5s infinite;
+}
+
+.dotss span:nth-child(1) { animation-delay: 0s; }
+.dotss span:nth-child(2) { animation-delay: 0.2s; }
+.dotss span:nth-child(4) { animation-delay: 0.6s; }
+.dotss span:nth-child(3) { animation-delay: 0.4s; }
+.dotss span:nth-child(5) { animation-delay: 0.8s; }
+.dotss span:nth-child(6) { animation-delay: 1.0s; }
+.dotss span:nth-child(7) { animation-delay: 1.2s; }
+.dotss span:nth-child(8) { animation-delay: 1.4s; }
+.dotss span:nth-child(9) { animation-delay: 1.6s; }
+
+/* Animation Correction */
+@keyframes blink {
+    0% { opacity: 0.3; }
+    50% { opacity: 1; }
+    100% { opacity: 0.3; }
+}
+
+/* Hide bot initially */
+#bot {
+    display: none;
+}
+
+
+        .chat-container {
+            height: 1030px;
+            max-width: 600px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+            position: relative;
+        }
+
+        .chat-header {
+            color: black;
+            padding-top: 15px;
+            padding-bottom: 6px;
+            padding-left: 10px;
+            padding-right:  10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #ddf;
+        }
+        .profile {
+          height: 37px;
+          width: 37px;
+        }
+        .chat-header h2 {
+          background: #ddd;
+          padding-top: 5px;
+          padding-bottom: 5px;
+          padding-left: 10px;
+          padding-right: 10px;
+          border-radius: 6px;
+          font-weight: 600;
+        }
+
+        #menu-btn {
+            background: none;
+            border: none;
+            height: 20px;
+            width: 20px;
+        }
+
+        .menu-dropdown {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            border-radius: 5px;
+            display: none;
+            z-index: 10;
+            height: 1020px;
+            width: 65%;
+            padding-top: 10px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        .menu-dropdown-header {
+        }
+        .menu-dropdown-middle {
+          overflow-y: scroll;
+          height: 880px;
+        }
+        .menu-dropdown-footer {
+          height: 70px;
+          position: relative;
+          bottom: 0;
+          z-index: 10;
+          filter: blur;
+          padding-top: 10px;
+          padding-bottom: 20px;
+          justify-content: center;
+          text-align: center;
+          border-top: 1px solid #ddf;
+        }
+        .menu-dropdown-footer div {
+          display: flex;
+          text-align: center;
+          margin-left: 50px;
+        }
+        .menu-dropdown-footer div img {
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+        }
+        .menu-dropdown-footer div h3 {
+          padding-top: 5px;
+          padding-left: 10px;
+          font-size: 20px;
+          font-weight: 500;
+        }
+        .searchimg {
+          width: 45px;
+          height: 45px;
+          position: absolute;
+          left: 10px;
+        }
+        .menu-dropdown p{
+          color: gray;
+          margin-top: 10px;
+          font-size: 12px;
+        }
+
+        .menu-dropdown ul {
+            list-style: none;
+            
+        }
+
+        .menu-dropdown ul li {
+            padding: 10px;
+            cursor: pointer;
+            width: 700px;
+        }
+
+        .menu-dropdown ul li:hover {
+            background: #ddd;
+        }
+        .searchbar {
+          padding: 15px;
+          padding-left: 35px;
+          width: 100%;
+          outline: none ;
+          border-radius: 30px;
+          font-size: 18px;
+          margin-bottom: 10px;
+          background: #ddd;
+          border: none;
+          
+        }
+        .menu-dropdown-headerk {
+          background: #ddd;
+          padding-bottom: 5px;
+          padding-top: 5px;
+          padding-left: 5px;
+          color: black;
+          display: flex;
+          margin-bottom: 10px;
+        }
+        .menu-dropdown-headerk img {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+        }
+        .menu-dropdown-headerk h3 {
+          padding-top: 10px;
+          padding-left: 10px;
+          font-size: 22px;
+          font-weight: 700;
+        }
+        .menu-dropdown-headerl{
+          background: transparent;
+          padding-bottom: 5px;
+          padding-top: 5px;
+          padding-left: 5px;
+          color: black;
+          display: flex;
+          margin-bottom: 28px;
+        }
+        .menu-dropdown-headerl img {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+        }
+        .menu-dropdown-headerl h3 {
+          padding-top: 10px;
+          padding-left: 10px;
+          font-size: 22px;
+          font-weight: 700;
+          
+        }
+        .menu-dropdown-headerl:hover {
+          background: #ddd;
+        }
+        .chat-messages {
+            height: 865px;
+            overflow-y: auto;
+            padding: 15px;
+            padding-bottom: 0;
+        }
+        .massageyada-dhexe {
+          text-align: center;
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+        }
+        .massageyada-dhexe h2 {
+          margin-bottom: 25px;
+          margin-top:  10px;
+        }
+        .massageyada-dhexe-1, 
+        .massageyada-dhexe-2 {
+          display: flex;
+          text-align: center;
+          gap: 10px;
+          justify-content: center;
+        }
+        .massageyada-dhexe-1 h3, 
+        .massageyada-dhexe-2 h3 {
+          border: 1px solid #ddd;
+          padding: 10px;
+          border-radius: 15px;
+          color: gray;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+        }
+
+        .received {
+            justify-content: flex-start;
+        }
+
+        .sent {
+            justify-content: flex-end;
+        }
+
+        .message-bubble {
+            max-width: 70%;
+            padding: 10px 15px;
+            border-radius: 15px;
+        }
+
+        .received .message-bubble {
+            background: transparent;
+            max-width: 95%;
+            color: black;
+        }
+
+        .sent .message-bubble {
+            background: #000;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        .input-area {
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            background-image: url('css/d2a77609f5d97b9081b117c8f699bd37.jpg'); /* Halkan sawirka geli */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 0 0 10px 10px;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+        .input-area img{
+          height: 40px;
+          width: 40px;
+          background: black;
+          border-radius: 50%;
+          position: absolute;
+          bottom: 11px;
+          right: 15px;
+          
+          
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            width: 100%;
+            outline: none;
+            background: #ddd;
+            font-size: 17px;
+        }
+        .input-area2 {
+          justify-content: space-between;
+          display: flex;
+          margin-top: 8px;
+          margin-bottom: 5px;
+        }
+        .thinks {
+          display: flex;
+          gap: 10px;
+          
+          justify-content: center;
+        }
+        .thinks button {
+          border: none;
+          background: #ddd;
+          padding: 10px 15px;
+          border-radius: 30px;
+          font-size: 16px;
+          color: black;
+        }
+        .daad {
+          display: flex;
+        }
+        .add{
+          border: none;
+          background: transparent;
+          position: absolute;
+          bottom: 3px;
+          right: 60px;
+          font-size: 60px;
+          font-weight: 200;
+        }
+        #scroll-button {
+    position: fixed;
+    bottom: 118px;
+    right: 225px;
+    background: #ddd;
+    color: white;
+    border: none;
+    padding: 8px 10px;
+    border-radius: 50%;
+    display: none;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.5);
+}
+#scroll-button img {
+  height: 40px;
+  width: 40px;
+}
+
+
+#scroll-button:hover {
+    background: rgb(209,209,209);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.8);
+}
+.clearChatu {
+  color: red;
+}
+/* Styling-ka guud ee code-ka */
+pre {
+    background-color: #282c34;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+    overflow-y: auto;
+    font-family: "Courier New", monospace;
+    white-space: pre-wrap; /* Code-ka ha laalaadin */
+    word-wrap: break-word;
+}
+
+/* Si xarfaha code-ka uga yara weynaadaan */
+.code-block {
+    font-size: 14px;
+    display: block;
+}
+
+/* Haddii code-ku uu jiro gudaha chat-ka */
+.message.received pre {
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+/* Xariijimo code */
+code {
+    background: #1e1e1e;
+    padding: 3px 6px;
+    border-radius: 4px;
+}
+
+#reason-btn, #search-btn {
+    transition: background-color 0.3s ease;
+}
+
+#reason-btn:active, #search-btn:active {
+    transform: scale(0.95);
+    color: red;
+}
+.loading-circle {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    margin-left: 5px;
+    background: gray;
+    border-radius: 50%;
+    animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+    0% { opacity: 0.2; }
+    50% { opacity: 1; }
+    100% { opacity: 0.2; }
+}
+
+.loading-text {
+    color: gray;
+    font-style: italic;
+    font-weight: bold;
+    animation: fadeIn 1s infinite alternate;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+.eea {
+  width: 50px;
+  height: 50px;
+  background: red;
+  cursor: pointer;
+}
+.record-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    position: absolute;
+    bottom: ;
+}
+
+.record-button img {
+    width: 40px;
+    height: 40px;
+}
+
+  #record-btn {
+    background: black;
+    border-radius: 50%;
+    border: none;
+    font-size: 24px;
+    color: #fff; 
+    cursor: pointer;
+    padding: 9px 13px; 
+    position: absolute;
+    right: 60px;  
+    transition: color 0.3s ease;
+}
+#record-btn:active {
+    color: red; /* Midab is beddelaya markuu duubayo */
+}
+#action-buttons {
+    display: none;
+    position: absolute;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    gap: 10px;
+}
+
+#action-buttons button {
+    font-size: 20px;
+    background: red;
+    border: none;
+    color: white;
+}
+.message-bubble {
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 70%;
+    word-wrap: break-word;
+}
+
+.message-bubble.yes {
+    background-color: #f1f1f1;
+}
+
+.message-bubble pre {
+    background-color: #000000;
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+.message-bubble code {
+    font-family: monospace;
+}
+
+.loading-circle {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #ccc;
+    margin-left: 5px;
+    animation: loading 1s infinite;
+}
+
+@keyframes loading {
+    0% { opacity: 0.2; }
+    50% { opacity: 1; }
+    100% { opacity: 0.2; }
+}
+      .door {
+            width: 110px;
+            height: 200px;
+            background-color: #8B4513;
+            position: absolute;
+            bottom: 120px;
+            right: 55px;
+            transform-origin: right;
+            transition: transform 2s;
+            cursor: pointer;
+        }
+
+        /* Door handle */
+        .door::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left:  10px;
+            width: 10px;
+            height: 10px;
+            background: gold;
+            border-radius: 50%;
+        }
+                .door.open {
+            transform: perspective(1000px) rotatey(120deg);
+            /* CSS */
+#menu-dropdown {
+    display: none;
+    position: absolute;
+    z-index: 1000;
+    /* Halkaan ku dar qaababkaada CSS */
+}
+
+#menu-dropdown.show {
+    display: block;
+}
+
